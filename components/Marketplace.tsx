@@ -55,6 +55,9 @@ const MapController = ({ onCenterChange }: { onCenterChange: (lat: number, lng: 
 const MapRevalidator = () => {
   const map = useMap();
   useEffect(() => {
+    // Disable mobile tap delay (Leaflet option not typed in react-leaflet props)
+    (map as any).options.tap = false;
+    
     // Force a resize calculation after mount to fix gray tiles
     const timer = setTimeout(() => {
       map.invalidateSize();
@@ -534,10 +537,7 @@ const Marketplace: React.FC<Props> = ({ trips, onRequestJoin, lang }) => {
                 scrollWheelZoom={true}
                 dragging={true}
                 doubleClickZoom={true}
-                whenCreated={(map) => {
-                // Leaflet option not typed in React-Leaflet props
-                (map as any).options.tap = false;
-                }}
+                whenReady={() => {}}
             >
                 <MapRevalidator />
                 <TileLayer
