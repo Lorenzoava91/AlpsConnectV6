@@ -534,8 +534,10 @@ const Marketplace: React.FC<Props> = ({ trips, onRequestJoin, lang }) => {
                 scrollWheelZoom={true}
                 dragging={true}
                 doubleClickZoom={true}
-                // tap={false} fixes the mobile tap issue where 2 taps are needed or clicks don't register
-                tap={false}
+                whenCreated={(map) => {
+                // Leaflet option not typed in React-Leaflet props
+                (map as any).options.tap = false;
+                }}
             >
                 <MapRevalidator />
                 <TileLayer
